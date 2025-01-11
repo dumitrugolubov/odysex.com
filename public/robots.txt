@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /exchange
+Sitemap: https://odysex.com/sitemap.xml
