@@ -3,6 +3,24 @@
   publish = "dist"
 
 [[redirects]]
+  from = "http://odysex.com/*"
+  to = "https://odysex.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.odysex.com/*"
+  to = "https://odysex.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.odysex.com/*"
+  to = "https://odysex.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

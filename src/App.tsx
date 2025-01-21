@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { ArrowRight, Rocket, Shield, Users } from 'lucide-react';
 import CookieConsent from './components/CookieConsent';
 import Footer from './components/Footer';
@@ -11,6 +11,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import GDPR from './pages/GDPR';
 import Exchange from './pages/Exchange';
+import SEO from './components/SEO'; // Assuming SEO component is defined in this file
 
 function HomePage() {
   return (
@@ -73,6 +74,42 @@ function HomePage() {
   );
 }
 
+function NotFoundPage() {
+  const location = useLocation();
+  const removedPages = ['/birthday-party-gangbang'];
+  
+  useEffect(() => {
+    if (removedPages.includes(location.pathname)) {
+      const meta = document.createElement('meta');
+      meta.httpEquiv = 'status';
+      meta.content = '410 Gone';
+      document.head.appendChild(meta);
+    }
+  }, [location]);
+
+  return (
+    <>
+      <SEO
+        title="Page Not Found"
+        description="The page you are looking for does not exist."
+        noindex={true}
+      />
+      <div className="min-h-screen bg-gray-900 pt-24">
+        <div className="container mx-auto px-4 py-12 text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">404 - Page Not Found</h1>
+          <p className="text-gray-300 mb-8">The page you are looking for does not exist.</p>
+          <a
+            href="/"
+            className="inline-flex items-center px-6 py-3 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+          >
+            Return Home
+          </a>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function App() {
   const [showCookieConsent, setShowCookieConsent] = useState(true);
 
@@ -89,6 +126,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/gdpr" element={<GDPR />} />
           <Route path="/exchange" element={<Exchange />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
       <Footer />

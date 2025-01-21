@@ -6,11 +6,13 @@ interface SEOProps {
   description: string;
   keywords?: string;
   noindex?: boolean;
+  canonicalPath?: string;
 }
 
-export default function SEO({ title, description, keywords, noindex = false }: SEOProps) {
+export default function SEO({ title, description, keywords, noindex = false, canonicalPath = '' }: SEOProps) {
   const baseUrl = 'https://odysex.com';
   const fullTitle = `${title} | Odyssey Exchange`;
+  const canonicalUrl = `${baseUrl}${canonicalPath}`;
 
   return (
     <Helmet>
@@ -18,7 +20,7 @@ export default function SEO({ title, description, keywords, noindex = false }: S
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       {noindex && <meta name="robots" content="noindex, nofollow" />}
-      <link rel="canonical" href={baseUrl} />
+      <link rel="canonical" href={canonicalUrl} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
